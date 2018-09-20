@@ -42,8 +42,3 @@ public class DBConnector {
 		close(null, p, r);
 	}	
 }
-
-
-
-
-

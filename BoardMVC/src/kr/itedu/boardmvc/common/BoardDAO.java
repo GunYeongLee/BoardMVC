@@ -58,8 +58,41 @@ public class BoardDAO {
 		return result;
 	}
 	
-	
-	
-	
+	public ArrayList<BoardVO> getBoardList(int btype, int pagecount, int pagenum) {
+		ArrayList<BoardVO> result = new ArrayList<BoardVO>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = getConn();
+			String query = String.format("select * from (" + 
+					"    select rownum as rnum, z.* from (" + 
+					"        select * from t_board0" + 
+					"        order by bid desc" + 
+					"        ) z where rownum <= (%d * %d)" + 
+					"    ) where rnum >= (1 + (%d - 1) * %d)", pagenum, pagecount, pagenum, pagecount);
+			ps = con.prepareStatement(query);			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int bid = rs.getInt("bid");
+				String btitle = rs.getString("btitle");
+				String bregdate = rs.getString("bregdate");
+				BoardVO bv = new BoardVO();
+				bv.setBid(bid);
+				bv.setBtitle(btitle);
+				bv.setBregdate(bregdate);				
+				result.add(bv);
+			}
+			
+			
+		} catch(SQLException e) {
+			//TODO: 예외처리
+		} catch(Exception e) {
+			//TODO: 예외처리
+		} finally {
+			close(con, null, null);
+		}
+		return result;
+	}
 	
 }
