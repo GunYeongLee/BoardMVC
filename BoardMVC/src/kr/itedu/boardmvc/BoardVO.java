@@ -1,19 +1,11 @@
 package kr.itedu.boardmvc;
 
-
-
 public class BoardVO {
 	private int bid, btype;
-	private String btitle="", bcontent="", bregdate="";
+	private String btitle = "", bcontent="", bregdate;
 		
 	public int getBtype() {
 		return btype;
-	}
-	public String getBregdate() {
-		return bregdate;
-	}
-	public void setBregdate(String bregdate) {
-		this.bregdate = bregdate;
 	}
 	public void setBtype(int btype) {
 		this.btype = btype;
@@ -35,5 +27,11 @@ public class BoardVO {
 	}
 	public void setBcontent(String bcontent) {
 		this.bcontent = bcontent;
-	}	
+	}
+	public String getBregdate() {
+		return bregdate;
+	}
+	public void setBregdate(String bregdate) {
+		this.bregdate = bregdate;
+	}
 }
